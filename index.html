@@ -290,13 +290,19 @@ function normCells(cells) {
 function rot90cw(cells) {
   return normCells(cells.map(([r,c]) => [c,-r]));
 }
+function mirrorCells(cells) {
+  const maxC = Math.max(...cells.map(c => c[1]));
+  return normCells(cells.map(([r,c]) => [r, maxC-c]));
+}
 function getRotations(cells) {
   const out = [], seen = new Set();
-  let cur = normCells(cells);
-  for (let i = 0; i < 4; i++) {
-    const key = JSON.stringify(cur);
-    if (!seen.has(key)) { seen.add(key); out.push(cur); }
-    cur = rot90cw(cur);
+  for (const start of [normCells(cells), mirrorCells(cells)]) {
+    let cur = start;
+    for (let i = 0; i < 4; i++) {
+      const key = JSON.stringify(cur);
+      if (!seen.has(key)) { seen.add(key); out.push(cur); }
+      cur = rot90cw(cur);
+    }
   }
   return out;
 }
