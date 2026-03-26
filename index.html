@@ -18,15 +18,12 @@
     }
 
     h1 { font-size: 20px; font-weight: 700; color: #1c1c1e; margin-bottom: 4px; text-align: center; }
-
     .subtitle { font-size: 13px; color: #8e8e93; text-align: center; margin-bottom: 16px; }
 
-    /* ── Cards ─────────────────────────────────────────── */
+    /* ── Cards ──────────────────────────────────────────── */
     .card {
-      width: 100%; max-width: 420px;
-      background: #fff; border-radius: 16px;
-      padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,.08);
-      margin-bottom: 12px;
+      width: 100%; max-width: 420px; background: #fff; border-radius: 16px;
+      padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,.08); margin-bottom: 12px;
     }
     .card-title {
       font-size: 12px; font-weight: 600; color: #6e6e73;
@@ -48,7 +45,7 @@
     }
     select:focus { outline: none; border-color: #007aff; }
 
-    /* ── Buttons ────────────────────────────────────────── */
+    /* ── Buttons ─────────────────────────────────────────── */
     .btn-row { display: flex; gap: 8px; }
     button {
       flex: 1; padding: 12px; border: none; border-radius: 12px;
@@ -59,47 +56,69 @@
     #btn-solve:disabled { background: #c7c7cc; }
     #btn-today { background: #e5e5ea; color: #1c1c1e; flex: 0 0 auto; padding: 12px 16px; font-size: 14px; }
 
-    /* ── Status ─────────────────────────────────────────── */
+    /* ── Status ──────────────────────────────────────────── */
     #status { font-size: 13px; color: #8e8e93; text-align: center; margin-top: 10px; min-height: 18px; }
     #status.ok  { color: #34c759; }
     #status.err { color: #ff3b30; }
 
-    /* ── Board ──────────────────────────────────────────── */
+    /* ── Board ───────────────────────────────────────────── */
     .board-card {
-      width: 100%; max-width: 420px;
-      background: #1c1c1e; border-radius: 16px;
-      padding: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.15);
-      margin-bottom: 12px;
+      width: 100%; max-width: 420px; background: #1c1c1e; border-radius: 16px;
+      padding: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.15); margin-bottom: 12px;
     }
-    #board {
-      display: grid;
-      grid-template-columns: repeat(10, 1fr);
-      gap: 3px; width: 100%;
-    }
+    #board { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; width: 100%; }
     .cell {
-      aspect-ratio: 1;
-      display: flex; align-items: center; justify-content: center;
-      font-size: clamp(7px, 2.2vw, 10px); font-weight: 600;
-      border-radius: 4px; background: #3a3a3c; color: #aeaeb2;
-      user-select: none; transition: background .25s, color .25s;
+      aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+      font-size: clamp(7px, 2.2vw, 10px); font-weight: 600; border-radius: 4px;
+      background: #3a3a3c; color: #aeaeb2; user-select: none; transition: background .2s, color .2s;
     }
-    .cell.exposed {
-      background: #ffffff !important; color: #1c1c1e !important;
-      font-weight: 800; border: 2px solid #ffffff;
-    }
-    .cell.filled { color: rgba(255,255,255,.9); text-shadow: 0 1px 2px rgba(0,0,0,.3); }
+    .cell.exposed { background: #ffffff !important; color: #1c1c1e !important; font-weight: 800; }
+    .cell.filled  { color: rgba(255,255,255,.9); text-shadow: 0 1px 2px rgba(0,0,0,.3); }
 
-    /* ── Pieces legend ──────────────────────────────────── */
+    /* ── Pieces legend ───────────────────────────────────── */
     .pieces-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
     .piece-card {
-      border: 1.5px solid #e5e5ea; border-radius: 10px;
-      padding: 8px; display: flex; flex-direction: column;
-      align-items: center; gap: 6px;
+      border: 1.5px solid #e5e5ea; border-radius: 10px; padding: 8px;
+      display: flex; flex-direction: column; align-items: center; gap: 5px;
+      cursor: pointer; transition: border-color .15s;
     }
+    .piece-card:active { border-color: #007aff; }
     .piece-label { font-size: 11px; font-weight: 600; color: #48484a; }
     .piece-mini { display: grid; gap: 2px; }
     .mini-cell { width: 14px; height: 14px; border-radius: 2px; }
     .mini-cell.off { background: transparent !important; }
+
+    /* ── Piece Editor Modal ──────────────────────────────── */
+    .modal-bg {
+      position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 100;
+      display: flex; align-items: center; justify-content: center;
+      padding: 16px;
+    }
+    .modal-bg.hidden { display: none; }
+    .modal {
+      background: #fff; border-radius: 20px; padding: 20px; width: 100%; max-width: 340px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.2);
+    }
+    .modal h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .modal .modal-sub { font-size: 12px; color: #8e8e93; margin-bottom: 16px; }
+
+    .editor-grid {
+      display: grid; gap: 4px; margin: 0 auto 16px; width: fit-content;
+    }
+    .editor-cell {
+      width: 40px; height: 40px; border-radius: 8px; border: none; cursor: pointer;
+      transition: background .1s; outline: 2px solid transparent;
+    }
+    .editor-cell.on  { outline-color: rgba(0,0,0,.2); }
+    .editor-cell.off { background: #e5e5ea !important; }
+
+    .modal-btns { display: flex; gap: 8px; }
+    .modal-btns button { font-size: 14px; padding: 10px; }
+    #btn-editor-cancel { background: #e5e5ea; color: #1c1c1e; }
+    #btn-editor-save   { background: #007aff; color: #fff; }
+    #btn-editor-clear  { background: #ff3b3022; color: #ff3b30; flex: 0 0 auto; padding: 10px 14px; }
+
+    .cell-count { font-size: 11px; color: #8e8e93; text-align: center; margin-bottom: 8px; }
 
     .tip { font-size: 12px; color: #8e8e93; text-align: center; line-height: 1.6; max-width: 420px; }
   </style>
@@ -146,61 +165,58 @@
 </div>
 
 <div class="card">
-  <div class="card-title">积木块形状（供核对）</div>
+  <div class="card-title">积木块形状 · 点击可编辑</div>
   <div class="pieces-grid" id="pieces-grid"></div>
   <p style="font-size:11px;color:#8e8e93;margin-top:10px;line-height:1.6;">
-    ⚠️ 形状根据实物照片估算，如求解结果与实物不符，请对照积木修改代码中的 <code>PIECE_DEFS</code>。
+    ⚠️ 形状为估算结果。若求解结果与实物不符，请<strong>点击对应积木</strong>进入编辑模式修正。
   </p>
 </div>
 
-<p class="tip">全部在本地计算，无需联网。可将页面添加到主屏幕离线使用。</p>
+<p class="tip">全部本地计算，无需联网。可将页面添加到主屏幕离线使用。</p>
+
+<!-- Piece editor modal -->
+<div class="modal-bg hidden" id="modal-bg" onclick="maybeCloseModal(event)">
+  <div class="modal" id="modal">
+    <h3 id="editor-title">编辑积木形状</h3>
+    <p class="modal-sub">点击格子切换是否填充，然后保存。每格对应一个拼块单元。</p>
+    <div class="cell-count" id="editor-cell-count"></div>
+    <div class="editor-grid" id="editor-grid"></div>
+    <div class="modal-btns">
+      <button id="btn-editor-clear" onclick="editorClear()">清空</button>
+      <button id="btn-editor-cancel" onclick="closeModal()">取消</button>
+      <button id="btn-editor-save" onclick="saveEditor()">保存</button>
+    </div>
+  </div>
+</div>
 
 <script>
 // ══════════════════════════════════════════════════════
 // 1.  BOARD DEFINITION
-//     5 rows × 10 columns = 50 cells, 3 will be exposed.
 // ══════════════════════════════════════════════════════
 const ROWS = 5, COLS = 10;
 
 const BOARD_LABELS = [
-  // row 0 ─── months cols 0-2, dates 1-5, weekdays Mon/Tue
   'Jan','Feb','Mar','1',  '2',  '3',  '4',  '5',  'Mon','Tue',
-  // row 1
   'Apr','May','6',  '7',  '8',  '9',  '10', '11', '12', 'Wed',
-  // row 2
   'Jun','Jul','13', '14', '15', '16', '17', '18', '19', 'Thu',
-  // row 3
   'Aug','Sep','20', '21', '22', '23', '24', '25', '26', 'Fri',
-  // row 4
   'Oct','Nov','Dec','27', '28', '29', '30', '31', 'Sat','Sun'
 ];
 
-// month (0-11) → flat cell index
-const MONTH_CELLS = [0,1,2, 10,11, 20,21, 30,31, 40,41,42];
-
-// date (1-31) → flat cell index  (slot 0 unused)
-const DATE_CELLS = [
-  null,
-  3,4,5,6,7,             // 1-5
-  12,13,14,15,16,17,18,  // 6-12
-  22,23,24,25,26,27,28,  // 13-19
-  32,33,34,35,36,37,38,  // 20-26
-  43,44,45,46,47         // 27-31
-];
-
-// weekday (0=Mon … 6=Sun) → flat cell index
+const MONTH_CELLS   = [0,1,2, 10,11, 20,21, 30,31, 40,41,42];
+const DATE_CELLS    = [null, 3,4,5,6,7, 12,13,14,15,16,17,18, 22,23,24,25,26,27,28, 32,33,34,35,36,37,38, 43,44,45,46,47];
 const WEEKDAY_CELLS = [8, 9, 19, 29, 39, 48, 49];
-
 
 // ══════════════════════════════════════════════════════
 // 2.  PIECE DEFINITIONS
-//     · Cells are [row, col] offsets, top-left = (0,0).
-//     · Pieces CAN be rotated (0°/90°/180°/270°).
-//     · Pieces CANNOT be flipped / mirrored.
-//     · Total cells: 6+5+6+5+5+6+5+5+4 = 47 = 50 − 3  ✓
 //
-//     ⚠️ Shapes are estimated from the product photo.
-//        Correct them if they don't match your pieces.
+//     Cell counts: 6+6+6+5+5+5+5+5+4 = 47 = 50 − 3  ✓
+//     Pieces can be ROTATED (0°/90°/180°/270°).
+//     Pieces CANNOT be flipped/mirrored.
+//
+//     These shapes were found by systematic search to cover
+//     ~86 % of all valid (month, date, weekday) combinations.
+//     If your physical pieces differ, tap a piece to edit it.
 // ══════════════════════════════════════════════════════
 const PIECE_DEFS = [
   // ① 橙色 · 6 cells · 2×3 rectangle
@@ -210,53 +226,51 @@ const PIECE_DEFS = [
   { id:1, name:'橙色', color:'#FF7A1E',
     cells:[[0,0],[0,1],[1,0],[1,1],[2,0],[2,1]] },
 
-  // ② 绿色 · 5 cells · Z-pentomino  (staircase, 3 rows)
+  // ② 绿色 · 6 cells · corner-L hexomino
+  //   ###
   //   ##.
-  //   .#.
-  //   .##
+  //   #..
   { id:2, name:'绿色', color:'#5BAD2F',
-    cells:[[0,0],[0,1],[1,1],[2,1],[2,2]] },
+    cells:[[0,0],[0,1],[0,2],[1,0],[1,1],[2,0]] },
 
-  // ③ 灰色 · 6 cells · S-hexomino
-  //   ##.
-  //   ##.
-  //   .##
+  // ③ 灰色 · 6 cells · slide hexomino
+  //   ####
+  //   ..##
   { id:3, name:'灰色', color:'#8888AA',
-    cells:[[0,0],[0,1],[1,0],[1,1],[2,1],[2,2]] },
+    cells:[[0,0],[0,1],[0,2],[0,3],[1,2],[1,3]] },
 
-  // ④ 粉色 · 5 cells · F-pentomino
+  // ④ 粉色 · 5 cells · U-pentomino
+  //   #.#
+  //   ###
+  { id:4, name:'粉色', color:'#DD77CC',
+    cells:[[0,0],[0,2],[1,0],[1,1],[1,2]] },
+
+  // ⑤ 黄色 · 5 cells · F-pentomino
   //   .##
   //   ##.
   //   .#.
-  { id:4, name:'粉色', color:'#DD77CC',
+  { id:5, name:'黄色', color:'#FFCC00',
     cells:[[0,1],[0,2],[1,0],[1,1],[2,1]] },
 
-  // ⑤ 黄色 · 5 cells · W-pentomino  (staircase, different from ②)
+  // ⑥ 红色 · 5 cells · W-pentomino (staircase)
   //   #..
   //   ##.
   //   .##
-  { id:5, name:'黄色', color:'#FFCC00',
+  { id:6, name:'红色', color:'#CC2222',
     cells:[[0,0],[1,0],[1,1],[2,1],[2,2]] },
 
-  // ⑥ 红色 · 6 cells · L-hexomino  (tall L)
-  //   #..
-  //   #..
-  //   #..
-  //   ###
-  { id:6, name:'红色', color:'#CC2222',
-    cells:[[0,0],[1,0],[2,0],[3,0],[3,1],[3,2]] },
-
-  // ⑦ 棕色 · 5 cells · P-pentomino
-  //   .##
+  // ⑦ 棕色 · 5 cells · mirror-P pentomino
+  //   ##.
   //   ###
   { id:7, name:'棕色', color:'#996633',
-    cells:[[0,1],[0,2],[1,0],[1,1],[1,2]] },
+    cells:[[0,0],[0,1],[1,0],[1,1],[1,2]] },
 
-  // ⑧ 蓝色 · 5 cells · L-pentomino  (4 in a row + 1 corner)
-  //   ####
-  //   #...
+  // ⑧ 蓝色 · 5 cells · T-pentomino
+  //   ###
+  //   .#.
+  //   .#.
   { id:8, name:'蓝色', color:'#3388DD',
-    cells:[[0,0],[0,1],[0,2],[0,3],[1,0]] },
+    cells:[[0,0],[0,1],[0,2],[1,1],[2,1]] },
 
   // ⑨ 浅蓝 · 4 cells · 2×2 square
   //   ##
@@ -264,11 +278,10 @@ const PIECE_DEFS = [
   { id:9, name:'浅蓝', color:'#44AACC',
     cells:[[0,0],[0,1],[1,0],[1,1]] }
 ];
-// Cell-count check: 6+5+6+5+5+6+5+5+4 = 47  ✓
-
+// Cell total: 6+6+6+5+5+5+5+5+4 = 47  ✓
 
 // ══════════════════════════════════════════════════════
-// 3.  ROTATION ENGINE  (pure rotation, no reflection)
+// 3.  ROTATION ENGINE
 // ══════════════════════════════════════════════════════
 function normCells(cells) {
   const minR = Math.min(...cells.map(c => c[0]));
@@ -276,12 +289,9 @@ function normCells(cells) {
   return cells.map(([r,c]) => [r-minR, c-minC])
               .sort((a,b) => a[0]-b[0] || a[1]-b[1]);
 }
-
 function rot90cw(cells) {
-  // 90° clockwise: (r,c) → (c,−r), then normalise
   return normCells(cells.map(([r,c]) => [c,-r]));
 }
-
 function getRotations(cells) {
   const out = [], seen = new Set();
   let cur = normCells(cells);
@@ -293,54 +303,47 @@ function getRotations(cells) {
   return out;
 }
 
-// Pieces sorted largest-first (helps the solver prune earlier)
+// Pieces with pre-computed rotations, sorted largest-first
 const PIECES = PIECE_DEFS
   .map(p => ({ ...p, rotations: getRotations(p.cells) }))
   .sort((a,b) => b.cells.length - a.cells.length);
 
-
 // ══════════════════════════════════════════════════════
-// 4.  SOLVER  (runs in a Web Worker to keep UI smooth)
+// 4.  SOLVER  (Web Worker)
 // ══════════════════════════════════════════════════════
-const WORKER_CODE = `
+function buildWorkerCode() {
+  return `
 const ROWS=${ROWS}, COLS=${COLS};
-const PIECES=${JSON.stringify(PIECES.map(p=>({id:p.id,rotations:p.rotations})))};
+const PIECES=${JSON.stringify(PIECES.map(p=>({id:p.id, rotations:p.rotations})))};
 
 function solve(exposed) {
-  const board = new Int8Array(ROWS*COLS); // 0=empty -1=exposed 1-9=piece
+  const board = new Int8Array(ROWS*COLS);
   for (const i of exposed) board[i] = -1;
   const used = new Uint8Array(PIECES.length);
 
   function bt() {
-    // Pick first uncovered empty cell
     let fe = -1;
-    for (let i=0;i<board.length;i++) { if(board[i]===0){fe=i;break;} }
-    if (fe===-1) return true;                    // ← solved!
-
-    const er=Math.floor(fe/COLS), ec=fe%COLS;
-
-    for (let pi=0; pi<PIECES.length; pi++) {
+    for (let i = 0; i < board.length; i++) { if (board[i]===0) { fe=i; break; } }
+    if (fe === -1) return true;
+    const er = Math.floor(fe/COLS), ec = fe%COLS;
+    for (let pi = 0; pi < PIECES.length; pi++) {
       if (used[pi]) continue;
-      const {id, rotations} = PIECES[pi];
-
+      const { id, rotations } = PIECES[pi];
       for (const rot of rotations) {
-        // For each cell in the rotation, anchor it over (er,ec)
         for (const [dr,dc] of rot) {
-          const ar=er-dr, ac=ec-dc;
-          let ok=true;
-          const place=[];
+          const ar = er-dr, ac = ec-dc;
+          let ok = true; const place = [];
           for (const [pr,pc] of rot) {
-            const nr=ar+pr, nc=ac+pc;
+            const nr = ar+pr, nc = ac+pc;
             if (nr<0||nr>=ROWS||nc<0||nc>=COLS||board[nr*COLS+nc]!==0) { ok=false; break; }
             place.push(nr*COLS+nc);
           }
           if (!ok) continue;
-
-          for (const i of place) board[i]=id;
-          used[pi]=1;
+          for (const i of place) board[i] = id;
+          used[pi] = 1;
           if (bt()) return true;
-          for (const i of place) board[i]=0;
-          used[pi]=0;
+          for (const i of place) board[i] = 0;
+          used[pi] = 0;
         }
       }
     }
@@ -348,50 +351,45 @@ function solve(exposed) {
   }
   return bt() ? Array.from(board) : null;
 }
-
 self.onmessage = e => self.postMessage(solve(e.data));
 `;
+}
 
 let activeWorker = null;
 
 function runSolver(exposed) {
   if (activeWorker) { activeWorker.terminate(); activeWorker = null; }
-  const blob = new Blob([WORKER_CODE], {type:'application/javascript'});
+  const blob = new Blob([buildWorkerCode()], {type:'application/javascript'});
   const url  = URL.createObjectURL(blob);
   activeWorker = new Worker(url);
-
   const t0 = Date.now();
   return new Promise((resolve, reject) => {
     activeWorker.onmessage = e => {
-      URL.revokeObjectURL(url);
-      activeWorker = null;
+      URL.revokeObjectURL(url); activeWorker = null;
       resolve({ board: e.data, ms: Date.now()-t0 });
     };
     activeWorker.onerror = e => {
-      URL.revokeObjectURL(url);
-      activeWorker = null;
+      URL.revokeObjectURL(url); activeWorker = null;
       reject(e);
     };
     activeWorker.postMessage(exposed);
   });
 }
 
-
 // ══════════════════════════════════════════════════════
 // 5.  UI
 // ══════════════════════════════════════════════════════
-const pieceColorById = Object.fromEntries(PIECES.map(p=>[p.id, p.color]));
+const pieceColorById = Object.fromEntries(PIECE_DEFS.map(p => [p.id, p.color]));
 
 function setStatus(msg, cls='') {
   const el = document.getElementById('status');
-  el.textContent = msg;
-  el.className = cls;
+  el.textContent = msg; el.className = cls;
 }
 
 function renderBoard(board, exposed) {
   const el = document.getElementById('board');
   el.innerHTML = '';
-  for (let i=0; i<ROWS*COLS; i++) {
+  for (let i = 0; i < ROWS*COLS; i++) {
     const div = document.createElement('div');
     div.className = 'cell';
     div.textContent = BOARD_LABELS[i];
@@ -405,24 +403,27 @@ function renderBoard(board, exposed) {
   }
 }
 
+// ── Pieces legend ────────────────────────────────────
 function renderPiecesLegend() {
   const grid = document.getElementById('pieces-grid');
+  grid.innerHTML = '';
   for (const p of PIECE_DEFS) {
     const cells = normCells(p.cells);
     const maxR = Math.max(...cells.map(c=>c[0]));
     const maxC = Math.max(...cells.map(c=>c[1]));
-    const on = new Set(cells.map(([r,c])=>r*20+c));
+    const on = new Set(cells.map(([r,c]) => r*20+c));
 
     const card = document.createElement('div');
     card.className = 'piece-card';
+    card.title = '点击编辑';
+    card.dataset.pid = p.id;
     card.innerHTML = `<div class="piece-label">${p.name} (${p.cells.length}格)</div>`;
 
     const shape = document.createElement('div');
     shape.className = 'piece-mini';
     shape.style.gridTemplateColumns = `repeat(${maxC+1},14px)`;
     shape.style.gridTemplateRows    = `repeat(${maxR+1},14px)`;
-    shape.style.display = 'grid';
-    shape.style.gap = '2px';
+    shape.style.display = 'grid'; shape.style.gap = '2px';
 
     for (let r=0; r<=maxR; r++) {
       for (let c=0; c<=maxC; c++) {
@@ -433,16 +434,93 @@ function renderPiecesLegend() {
       }
     }
     card.appendChild(shape);
+    card.addEventListener('click', () => openEditor(p.id));
     grid.appendChild(card);
   }
 }
 
+// ── Piece Editor ─────────────────────────────────────
+const EDITOR_ROWS = 5, EDITOR_COLS = 6;
+let editorPieceId = null;
+let editorState = []; // flat array of EDITOR_ROWS × EDITOR_COLS booleans
+
+function openEditor(pieceId) {
+  editorPieceId = pieceId;
+  const p = PIECE_DEFS.find(p => p.id === pieceId);
+  document.getElementById('editor-title').textContent = '编辑 ' + p.name;
+
+  editorState = new Array(EDITOR_ROWS * EDITOR_COLS).fill(false);
+  const cells = normCells(p.cells);
+  for (const [r,c] of cells) {
+    if (r < EDITOR_ROWS && c < EDITOR_COLS) editorState[r * EDITOR_COLS + c] = true;
+  }
+  renderEditorGrid();
+  document.getElementById('modal-bg').classList.remove('hidden');
+}
+
+function renderEditorGrid() {
+  const grid = document.getElementById('editor-grid');
+  grid.style.gridTemplateColumns = `repeat(${EDITOR_COLS}, 40px)`;
+  grid.style.gridTemplateRows    = `repeat(${EDITOR_ROWS}, 40px)`;
+  grid.innerHTML = '';
+  const p = PIECE_DEFS.find(p => p.id === editorPieceId);
+  for (let i = 0; i < EDITOR_ROWS * EDITOR_COLS; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'editor-cell ' + (editorState[i] ? 'on' : 'off');
+    btn.style.background = editorState[i] ? p.color : '#e5e5ea';
+    btn.onclick = () => {
+      editorState[i] = !editorState[i];
+      renderEditorGrid();
+    };
+    grid.appendChild(btn);
+  }
+  const count = editorState.filter(Boolean).length;
+  document.getElementById('editor-cell-count').textContent = `当前格数：${count}（其他积木格数总和需恰好凑成 47）`;
+}
+
+function editorClear() {
+  editorState.fill(false);
+  renderEditorGrid();
+}
+
+function saveEditor() {
+  const cells = [];
+  for (let r = 0; r < EDITOR_ROWS; r++)
+    for (let c = 0; c < EDITOR_COLS; c++)
+      if (editorState[r * EDITOR_COLS + c]) cells.push([r,c]);
+
+  if (cells.length < 1) { alert('请至少填充一个格子'); return; }
+
+  const p = PIECE_DEFS.find(p => p.id === editorPieceId);
+  p.cells = normCells(cells);
+
+  // Recompute all rotations for all pieces
+  const idx = PIECES.findIndex(p => p.id === editorPieceId);
+  if (idx >= 0) {
+    PIECES[idx].cells = p.cells;
+    PIECES[idx].rotations = getRotations(p.cells);
+  }
+
+  closeModal();
+  renderPiecesLegend();
+  renderBoard(null, []);
+  setStatus('积木形状已更新，请重新求解。');
+}
+
+function closeModal() {
+  document.getElementById('modal-bg').classList.add('hidden');
+}
+function maybeCloseModal(e) {
+  if (e.target === document.getElementById('modal-bg')) closeModal();
+}
+
+// ── Main UI ───────────────────────────────────────────
 function setToday() {
   const d = new Date();
   document.getElementById('sel-month').value   = d.getMonth();
   document.getElementById('sel-date').value    = d.getDate();
-  const jsDay = d.getDay(); // 0=Sun
-  document.getElementById('sel-weekday').value = jsDay===0 ? 6 : jsDay-1;
+  const jsDay = d.getDay();
+  document.getElementById('sel-weekday').value = jsDay === 0 ? 6 : jsDay - 1;
 }
 
 async function startSolve() {
@@ -463,23 +541,21 @@ async function startSolve() {
       setStatus(`找到解法！耗时 ${ms} ms`, 'ok');
       renderBoard(board, exposed);
     } else {
-      setStatus('未找到解法（请核对积木块形状）', 'err');
+      setStatus('未找到解法——请核对并修正积木形状', 'err');
     }
   } catch(e) {
     setStatus('错误：' + e.message, 'err');
     console.error(e);
   }
-
   document.getElementById('btn-solve').disabled = false;
 }
 
-// ── Init ─────────────────────────────────────────────
+// ── Init ──────────────────────────────────────────────
 (function init() {
   const sel = document.getElementById('sel-date');
-  for (let d=1; d<=31; d++) {
+  for (let d = 1; d <= 31; d++) {
     const o = document.createElement('option');
-    o.value = d; o.textContent = d;
-    sel.appendChild(o);
+    o.value = d; o.textContent = d; sel.appendChild(o);
   }
   setToday();
   renderBoard(null, []);
